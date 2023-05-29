@@ -7,6 +7,10 @@
 
 import UIKit
 
+/// 主要頁面的Tab系統。
+///
+/// -Authors: Tomtom Chu
+/// -Date: 2023.5.29
 final class RMTabBarController: UITabBarController {
 
     override func viewDidLoad() {
