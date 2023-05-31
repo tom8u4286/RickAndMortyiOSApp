@@ -21,9 +21,17 @@ final class RMService {
     
     /// 打API。
     ///
+    /// - parameters:
+    ///     - request: Request 實體。
+    ///     - type: 我們預期傳回來的物件的型態。
+    ///     - completion: Callback with data or error
     /// -Authors: Tomtom Chu
     /// -Date: 2023.5.29
-    public func execute(_ request: RMRequest, completion: @escaping ()-> Void){
+    public func execute<T: Codable>(
+        _ request: RMRequest,
+        expecting type: T.Type,
+        completion: @escaping (Result<T, Error>)-> Void
+    ){
         
     }
 }
