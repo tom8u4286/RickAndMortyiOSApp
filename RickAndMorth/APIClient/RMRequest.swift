@@ -26,7 +26,7 @@ final class RMRequest{
     
     private let endpoint: RMEndpoint
     
-    private let pathComponents: Set<String>
+    private let pathComponents: [String]
     
     private let queryParameters: [URLQueryItem]
     
@@ -49,15 +49,13 @@ final class RMRequest{
             string += "?"
             let argumentString = queryParameters.compactMap({
                 guard let value = $0.value else { return nil }
-                return "\($0.name)=\($0.value)"
+                return "\($0.name)=\(value)"
             }).joined(separator: "&")
             
             string += argumentString
             
         }
-        
         return string
-        
     }
     
     /// 將urlString轉換成URL型別。
@@ -68,12 +66,16 @@ final class RMRequest{
         return URL(string: urlString)
     }
     
+    /// 目前我們只使用到GET
+    ///
+    /// -Authors: Tomtom Chu
+    /// -Date: 2023.6.1
     public let httpMethod = "GET"
     
     
     public init(
         endpoint: RMEndpoint,
-        pathComponents: Set<String> = [],
+        pathComponents: [String] = [],
         queryParameters: [URLQueryItem] = []
     ){
         self.endpoint = endpoint
@@ -81,8 +83,13 @@ final class RMRequest{
         self.queryParameters = queryParameters
     }
     
-    
-    
-    
-    
+}
+
+/// 常用的RMRequest。
+///
+/// -Authors: Tomtom Chu
+/// -Date: 2023.6.1
+extension RMRequest {
+    // 角色清單
+    static let listCharactersRequests = RMRequest(endpoint: .character)
 }
