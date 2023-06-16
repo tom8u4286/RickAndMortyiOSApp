@@ -7,6 +7,10 @@
 
 import UIKit
 
+/// 第四個Tab分頁的ViewController： Location
+///
+/// -Authors: Tomtom Chu
+/// -Date: 2023.6.6
 final class RMSettingsViewController: UIViewController {
 
     override func viewDidLoad() {

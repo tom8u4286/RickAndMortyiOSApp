@@ -15,12 +15,14 @@ final class RMTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .red
         setupTabs()
     }
 
     
+    /// Tab Bar基本設定: Icon、ViewController頁面..
+    ///
+    /// -Authors: Tomtom Chu
+    /// -Date: 2023.6.5
     private func setupTabs(){
         let charactersVC = RMCharacterViewController()
         let locationsVC = RMLocationViewController()
