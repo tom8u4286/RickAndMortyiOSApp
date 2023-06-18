@@ -11,6 +11,7 @@ final class RMCharacterListView: UIView {
     
     private let viewModel = RMCharacterListViewViewModel()
 
+    // 等待旋轉指示
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.hidesWhenStopped = true
@@ -19,10 +20,11 @@ final class RMCharacterListView: UIView {
         return spinner
     }()
     
+    // 主要CollectionView
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         // 先隱藏此CollectionView，直到得到API資料後
         collectionView.isHidden = true
@@ -41,6 +43,8 @@ final class RMCharacterListView: UIView {
         
         spinner.startAnimating()
         
+        viewModel.delegate = self
+        // 讓viewModel打API取回所有角色資料
         viewModel.fetchCharacters()
         
         setupCollectionView()
@@ -80,4 +84,20 @@ final class RMCharacterListView: UIView {
         })
     }
 
+}
+
+extension RMCharacterListView: RMCharacterListViewViewModelDelegate {
+    
+    /// 當viewModel打完API，將資料擷取完畢後，會呼叫此function。
+    ///
+    /// -Authors: Tomtom Chu
+    /// -Date: 2023.6.18
+    func didLoadInitialCharacters() {
+        spinner.stopAnimating()
+        collectionView.isHidden = false
+        collectionView.reloadData()
+        UIView.animate(withDuration: 0.4) {
+            self.collectionView.alpha = 1
+        }
+    }
 }
